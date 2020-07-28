@@ -10,7 +10,7 @@ const CreateDeckScreen = ({ navigation }) => {
     
     return (
         <View>
-
+            <Text style={styles.label}>Enter Title:</Text>
             <DeckForm 
                 onSubmit={async (title) => {
                     try {

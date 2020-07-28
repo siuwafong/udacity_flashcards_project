@@ -18,8 +18,6 @@ import { DeckProvider } from './src/context/DeckContext'
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { Ionicons } from '@expo/vector-icons';
 
-import { Notifications } from 'expo-notifications';
-
 const mainStack = createStackNavigator({
   CreateDeck: CreateDeckScreen,
   Quiz: QuizScreen,

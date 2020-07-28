@@ -2,14 +2,14 @@ import React, { useState } from 'react'
 import { StyleSheet, Text, View, TextInput, Button, Alert } from 'react-native'
 
 const QuestionForm = ({ onSubmit, initialValues={question: "", answer: ""} }) => {
-
+    
     QuestionForm.defaultProps = {
         title: "",
         answer: ""
     }
 
-    const [question, setQuestion] = useState(initialValues.title)
-    const [answer, setAnswer] = useState(initialValues.description)
+    const [question, setQuestion] = useState(initialValues.question)
+    const [answer, setAnswer] = useState(initialValues.answer)
 
     return (
         <View>

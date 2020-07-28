@@ -34,8 +34,27 @@ export function DeckProvider(props) {
         }
     }
 
+    const deleteCard = async (deckId, cardId) => {
+        try {
+            await setDecks(
+                {...decks,
+                    [deckId]: {
+                        ...decks[deckId],
+                        cards: decks[deckId].cards.filter((card) => card.id !== cardId)
+                    }
+                })
+            saveDecks(
+                {...decks,
+                    [deckId]: {
+                        ...decks[deckId],
+                        cards: decks[deckId].cards.filter((card) => card.id !== cardId)
+                    }
+                })
+        } catch(err) {console.log(err)}
+    }
+
     return (
-        <DeckContext.Provider value={{ decks, setDecks, saveDecks }}>
+        <DeckContext.Provider value={{ decks, setDecks, saveDecks, deleteCard }}>
             {props.children}
         </DeckContext.Provider>
     )

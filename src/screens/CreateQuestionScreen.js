@@ -3,11 +3,13 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import QuestionForm from '../components/QuestionForm'
 import DeckScreen from './DeckScreen'
 import { DeckContext } from '../context/DeckContext'
+import generateID from '../helpers/generateID'
 
 const CreateQuestionScreen = ({ navigation }) => {
 
     const deckID = navigation.getParam('id').toString()
     const {setDecks, decks, saveDecks} = useContext(DeckContext)
+    let randomID = generateID()
 
     return (
         <View>
@@ -18,14 +20,22 @@ const CreateQuestionScreen = ({ navigation }) => {
                             {...decks, 
                                 [deckID]: {
                                     ...decks[deckID],
-                                    cards: decks[deckID].cards.concat({question: question, answer: answer})
+                                    cards: decks[deckID].cards.concat({
+                                        question: question, 
+                                        answer: answer,
+                                        id: randomID
+                                    })
                                 }
                             })
                         saveDecks(
                             {...decks, 
                                 [deckID]: {
                                     ...decks[deckID],
-                                    cards: decks[deckID].cards.concat({question: question, answer: answer})
+                                    cards: decks[deckID].cards.concat({
+                                        question: question, 
+                                        answer: answer,
+                                        id: randomID
+                                    })
                                 }
                             })
                     } catch(err) {console.log(err)}

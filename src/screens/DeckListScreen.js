@@ -2,8 +2,8 @@ import React, { useContext, useEffect } from 'react'
 import { DeckContext } from '../context/DeckContext'
 import { StyleSheet, Text, View, TouchableOpacity, FlatList, Button } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage';
-import generateID from '../helpers/generateID'
 import { Feather } from '@expo/vector-icons'; 
+import { setLocalNotification } from '../helpers/notification'
 
 const DeckListScreen = ({ navigation }) => {
 
@@ -35,6 +35,20 @@ const DeckListScreen = ({ navigation }) => {
 
     useEffect(() => {
         getData()
+        setLocalNotification()
+        // Permissions.askAsync(Permissions.NOTIFICATIONS).then(({ status }) => {
+        //     if (status === 'granted') {
+        //         Notifications.scheduleNotificationAsync({
+        //             content: {
+        //                 title: "Alert!",
+        //                 body: "This is a notification!"
+        //             },
+        //             trigger: {
+        //                 seconds: 120,
+        //             }
+        //         })
+        //     }
+        //   })   
     }, [])
 
     return (

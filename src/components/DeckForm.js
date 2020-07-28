@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, Text, View, TextInput, Button ,Alert } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Button, Alert } from 'react-native'
 
 const DeckForm = ({ onSubmit, initialValues={title: ""} }) => {
 
@@ -8,14 +8,10 @@ const DeckForm = ({ onSubmit, initialValues={title: ""} }) => {
     }
 
     const [title, setTitle] = useState(initialValues.title)
-    // const [description, setDescription] = useState(initialValues.description)
 
     return (
         <View>
-            <Text style={styles.label}>Enter Title:</Text>
             <TextInput style={styles.input} value={title} onChangeText={(text) => setTitle(text)}/>
-            {/* <Text style={styles.label}>Enter Description:</Text>
-            <TextInput style={styles.input} value={description} onChangeText={(text) => setDescription(text)}/> */}
             <Button 
                 title="Save Deck" 
                 onPress={() => 
@@ -23,7 +19,7 @@ const DeckForm = ({ onSubmit, initialValues={title: ""} }) => {
                     ? Alert.alert("Title Required", "Decks must have a title")
                     : onSubmit(title)}
             />
-    </View>
+        </View>
     )
 }
 

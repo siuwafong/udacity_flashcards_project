@@ -23,7 +23,7 @@ const DeckScreen = ({ navigation }) => {
             
             />
             <TouchableOpacity onPress={() => navigation.navigate("CreateQuestion", {id: deckID})}><Text>Add Questions</Text></TouchableOpacity>
-            <TouchableOpacity><Text>View/Edit Quiz</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("EditDeck", {id: deckID, title: decks[deckID].title})}><Text>View/Edit Quiz</Text></TouchableOpacity>
         </View>
     )
 }
