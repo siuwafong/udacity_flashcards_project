@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import CreateDeckScreen from './src/screens/CreateDeckScreen';
@@ -12,11 +12,13 @@ import StatsScreen from './src/screens/StatsScreen'
 import OptionsScreen from './src/screens/OptionsScreen'
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 
-import { CardProvider } from './src/context/CardContext'
+import { SettingsProvider } from './src/context/SettingsContext'
 import { DeckProvider } from './src/context/DeckContext'
+import { StatsProvider } from './src/context/StatsContext'
 
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { Ionicons } from '@expo/vector-icons';
+
 
 const mainStack = createStackNavigator({
   CreateDeck: CreateDeckScreen,
@@ -47,8 +49,9 @@ const optionsStack = createStackNavigator({
 }, {
   initialRouteName: 'Options',
   defaultNavigationOptions: {
-    title: 'Options'
-  }
+    title: 'Options',
+    // cardStyle: {backgroundColor: "black"}
+  },
 })
 
 const tabNavigator = createMaterialBottomTabNavigator(
@@ -74,12 +77,18 @@ const tabNavigator = createMaterialBottomTabNavigator(
 
 const App = createAppContainer(tabNavigator)
 
+
 export default () => {
+
+  // const { setDarkMode } = useContext(SettingsContext)
+
   return (
-    <DeckProvider>
-      <CardProvider>
-        <App />
-      </CardProvider>
-    </DeckProvider>
+    <StatsProvider>
+      <DeckProvider>
+        <SettingsProvider>
+          <App />
+        </SettingsProvider>
+      </DeckProvider>
+    </StatsProvider>
   )
 }

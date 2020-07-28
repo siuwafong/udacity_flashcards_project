@@ -1,16 +1,19 @@
 import React, { useState, useContext } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { DeckContext } from '../context/DeckContext'
+import { StatsContext } from '../context/StatsContext'
 
 const QuizScreen = ({ navigation }) => {
 
     const deckID = navigation.getParam('id').toString()
-    const {setDecks, decks, saveDecks} = useContext(DeckContext)
+    const {decks} = useContext(DeckContext)
+    const { bestQuizScore, setBestQuizScore, quizAttempts, setQuizAttempts, saveOverallStats } = useContext(StatsContext)
 
     const [showAnswer, setShowAnswer] = useState(false)
     const [questionNumber, setQuestionNumber] = useState(1)
     const [quizScore, setQuizScore] = useState(0)
-
+    
+    const quizScorePercentage = (quizScore / decks[deckID].cards.length * 100).toFixed(1)
     const nextQuestion = (answer) => {
         setQuestionNumber(questionNumber + 1)
         setShowAnswer(false)
@@ -21,6 +24,16 @@ const QuizScreen = ({ navigation }) => {
         setQuestionNumber(1)
         setShowAnswer(false)
         setQuizScore(0)
+    }
+
+    const setQuizStats = async () => {
+        try {
+        await setQuizAttempts(quizAttempts + 1)
+        if(Number(quizScorePercentage) > Number(bestQuizScore.score))  {
+             setBestQuizScore({score: quizScorePercentage, id: decks[deckID].id})
+        }
+        saveOverallStats({bestQuizScore, quizAttempts})
+        } catch(err) {console.log(err)}
     }
 
     return (
@@ -52,12 +65,13 @@ const QuizScreen = ({ navigation }) => {
             :
                 <>
                 <Text>Quiz Finished</Text>
-                <Text>Your final score is {quizScore}/{decks[deckID].cards.length} </Text>
-                
-                <TouchableOpacity onPress={() => restartQuiz()}><Text>Restart Quiz</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate("DeckList")}><Text>Back to Decks</Text></TouchableOpacity>
+                <Text>Your final score is {quizScore}/{decks[deckID].cards.length} - {quizScorePercentage}% </Text>
+                                
+                    <TouchableOpacity onPress={() => setQuizStats().then(restartQuiz())}><Text>Restart Quiz</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={() => setQuizStats().then(navigation.navigate("DeckList"))}><Text>Back to Decks</Text></TouchableOpacity>
                 </>
             }
+            <TouchableOpacity onPress={() => console.log(bestQuizScore, quizAttempts)}><Text>View Stats </Text></TouchableOpacity>
         </View>
     )
 }

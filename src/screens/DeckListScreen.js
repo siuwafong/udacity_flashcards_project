@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import { DeckContext } from '../context/DeckContext'
+import { StatsContext } from '../context/StatsContext'
 import { StyleSheet, Text, View, TouchableOpacity, FlatList, Button } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage';
 import { Feather } from '@expo/vector-icons'; 
@@ -7,7 +8,8 @@ import { setLocalNotification } from '../helpers/notification'
 
 const DeckListScreen = ({ navigation }) => {
 
-    const { decks, setDecks } = useContext(DeckContext)
+    const { decks, getDecksData } = useContext(DeckContext)
+    const { getStatsData, bestQuizScore, quizAttempts } = useContext(StatsContext)
 
     const deckList = Object.keys(decks).map(key => {
         return decks[key]
@@ -22,33 +24,12 @@ const DeckListScreen = ({ navigation }) => {
         }
     }
 
-    const getData = async () => {
-        try {
-            const data = await AsyncStorage.getItem("decks")
-            if (data !== null) {
-                setDecks(JSON.parse(data))
-            } else {console.log("no data in decks!")}
-        } catch (err) {
-            console.log(err)
-        }
-    }
+
 
     useEffect(() => {
-        getData()
+        getDecksData()
+        getStatsData()
         setLocalNotification()
-        // Permissions.askAsync(Permissions.NOTIFICATIONS).then(({ status }) => {
-        //     if (status === 'granted') {
-        //         Notifications.scheduleNotificationAsync({
-        //             content: {
-        //                 title: "Alert!",
-        //                 body: "This is a notification!"
-        //             },
-        //             trigger: {
-        //                 seconds: 120,
-        //             }
-        //         })
-        //     }
-        //   })   
     }, [])
 
     return (
@@ -89,10 +70,15 @@ const DeckListScreen = ({ navigation }) => {
             <TouchableOpacity onPress={() => console.log(deckList)}> 
                 <Text>Print Decks</Text> 
             </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => console.log(bestQuizScore, quizAttempts)}> 
+                <Text>Print Stats</Text> 
+            </TouchableOpacity>
             
             <TouchableOpacity onPress={() => clearStorage()}> 
                 <Text>Clear Storage</Text> 
             </TouchableOpacity>
+
         </View>
     )
 }

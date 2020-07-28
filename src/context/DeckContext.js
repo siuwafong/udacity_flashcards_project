@@ -1,7 +1,6 @@
 import React, { useReducer, createContext, useState } from 'react';
 import generateID from '../helpers/generateID';
 import AsyncStorage from '@react-native-community/async-storage';
-import createDataContext from './createDataContext'
 
 export const DeckContext = createContext()
 
@@ -34,6 +33,17 @@ export function DeckProvider(props) {
         }
     }
 
+    const getDecksData = async () => {
+        try {
+            const data = await AsyncStorage.getItem("decks")
+            if (data !== null) {
+                setDecks(JSON.parse(data))
+            } else {console.log("no data in decks!")}
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     const deleteCard = async (deckId, cardId) => {
         try {
             await setDecks(
@@ -54,7 +64,7 @@ export function DeckProvider(props) {
     }
 
     return (
-        <DeckContext.Provider value={{ decks, setDecks, saveDecks, deleteCard }}>
+        <DeckContext.Provider value={{ decks, setDecks, saveDecks, deleteCard, getDecksData }}>
             {props.children}
         </DeckContext.Provider>
     )
