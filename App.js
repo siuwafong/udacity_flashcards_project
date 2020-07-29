@@ -80,7 +80,7 @@ const App = createAppContainer(tabNavigator)
 
 export default () => {
 
-  // const { setDarkMode } = useContext(SettingsContext)
+  
 
   return (
     <StatsProvider>

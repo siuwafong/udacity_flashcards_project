@@ -41,6 +41,7 @@ const EditDeckScreen = ({ navigation }) => {
             />
             {savedTitleChange === true && <Text style={styles.deckChangeMsg}>Deck title has been changed to {decks[deckID].title}</Text>}
             
+            {/* TODO: Delete function will be added in a later version */}
             {/* <Button 
                 title="Delete Deck" 
                 color="red"

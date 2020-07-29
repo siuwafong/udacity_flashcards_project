@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { StyleSheet, Text, View, Button, Alert } from 'react-native'
+import { StyleSheet, Text, View, Alert } from 'react-native'
 import { DeckContext } from '../context/DeckContext'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
@@ -27,13 +27,13 @@ const DeckScreen = ({ navigation }) => {
                 style={styles.addQuestionsBtn}
                 onPress={() => navigation.navigate("CreateQuestion", {id: deckID})}
             >
-                <Text style={styles.btnText}>Add Questions</Text>
+                <Text style={styles.btnText}>Add Cards</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
                 style={styles.editQuizBtn} 
                 onPress={() => navigation.navigate("EditDeck", {id: deckID, title: decks[deckID].title, colour: decks[deckID].colour})}>
-                    <Text style={styles.btnText}>View/Edit Quiz</Text>
+                    <Text style={styles.btnText}>Edit Deck</Text>
             </TouchableOpacity>
         </View>
     )

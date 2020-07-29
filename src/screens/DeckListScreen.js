@@ -63,15 +63,6 @@ const DeckListScreen = ({ navigation }) => {
                 }
             </View>
             </ScrollView>
-
-            <TouchableOpacity onPress={() => console.log(deckList)}> 
-                <Text>Print Decks</Text> 
-            </TouchableOpacity>
-
-            {/* <TouchableOpacity onPress={() => console.log(bestQuizScore, quizAttempts)}> 
-                <Text>Print Stats</Text> 
-            </TouchableOpacity> */}
-
         </View>
     )
 }
@@ -85,7 +76,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         justifyContent: "center",
         fontSize: 24,
-        marginVertical: 40,
+        marginVertical: 20,
         borderRadius: 10,
         width: 180,
         height: 50,
@@ -98,7 +89,7 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 10,   
         marginHorizontal: 20,
-        marginVertical: 20, 
+        marginVertical: 10, 
         alignItems: "center",
         justifyContent: "center"   
     },

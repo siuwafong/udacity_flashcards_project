@@ -1,5 +1,4 @@
 import React, { useReducer, createContext, useState } from 'react';
-import generateID from '../helpers/generateID';
 import AsyncStorage from '@react-native-community/async-storage';
 
 export const DeckContext = createContext()
@@ -54,36 +53,5 @@ export function DeckProvider(props) {
     )
 }
 
-    // export const { Context, Provider } = createDataContext(
-    //     deckReducer,
-    //     {addDeck},
-    //     []
-    // )
-
-   // const onSubmit = async () => {
-    //     try {
-    //         await AsyncStorage.setItem('item', "item stored")
-    //             .then(() => console.log("ITEM STORED"))
-    //     }   catch (err) {
-    //         console.log(err)
-    //     }
-    // }
-
-
-    // {title: title, description: description, id: generateID()}
-
-    // const addDeck =  async (title, description) => {
-    //     try {
-    //         setDecks([...decks, `NEW DECK ${decks.length}`])
-    //         await AsyncStorage.setItem("decks", JSON.stringify(decks))
-    //         console.log(decks)
-    //     } catch (err) {
-    //         console.log(err)
-    //     }
-    // }
-
-    // const addDeck = (title, description) => {
-    //     setDecks(decks => [...decks, {title: title, desription: description}])
-    // }
 
 

@@ -1,7 +1,6 @@
-import React, { useContext, useState } from 'react'
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import React, { useContext } from 'react'
+import { StyleSheet, Text, View } from 'react-native'
 import QuestionForm from '../components/QuestionForm'
-import DeckScreen from './DeckScreen'
 import { DeckContext } from '../context/DeckContext'
 import generateID from '../helpers/generateID'
 
@@ -42,11 +41,9 @@ const CreateQuestionScreen = ({ navigation }) => {
                 }}
             />
 
-            <Text style={styles.cardCountMsg}>This deck currently has {decks[deckID].cards.length} card(s).</Text>
-            
-            {/* <TouchableOpacity onPress={() => console.log(decks)}> 
-                <Text>Print Decks</Text> 
-            </TouchableOpacity> */}
+            <Text style={styles.cardCountMsg}>
+                This deck currently has {decks[deckID].cards.length} card(s).
+            </Text>
         </View>
     )
 }

@@ -1,5 +1,5 @@
-import React, { useContext, useReducer, useState } from 'react'
-import { StyleSheet, Text, View, FlatList, TouchableOpacity, TextInput, Button } from 'react-native'
+import React, { useContext } from 'react'
+import { StyleSheet, Text, View } from 'react-native'
 import DeckForm from '../components/DeckForm'
 import { DeckContext } from '../context/DeckContext'
 import generateID from '../helpers/generateID'
@@ -21,8 +21,6 @@ const CreateDeckScreen = ({ navigation }) => {
                         catch(err) {console.log(err)}
                 }}
             />
-
-            {/* <TouchableOpacity onPress={() => console.log(decks)}><Text>Print Decks</Text></TouchableOpacity> */}
         </View>
         
     )

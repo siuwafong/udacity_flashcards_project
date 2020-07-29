@@ -96,7 +96,6 @@ const QuizScreen = ({ navigation }) => {
                     </View>
                 </View>
             }
-            {/* <TouchableOpacity onPress={() => console.log(bestQuizScore, quizAttempts)}><Text>View Stats </Text></TouchableOpacity> */}
         </View>
     )
 }
