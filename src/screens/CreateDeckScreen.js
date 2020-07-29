@@ -12,11 +12,11 @@ const CreateDeckScreen = ({ navigation }) => {
         <View>
             <Text style={styles.label}>Enter Title:</Text>
             <DeckForm 
-                onSubmit={async (title) => {
+                onSubmit={async (title, colour) => {
                     try {
                         let ID = generateID()
-                        await setDecks({...decks, [ID]: {title, id: ID, cards: [], lastCompleted: new Date()}})
-                        saveDecks({...decks, [ID]: {title, id: ID, cards: [], lastCompleted: new Date()}})
+                        await setDecks({...decks, [ID]: {title, id: ID, cards: [], dateCreated: new Date(), colour: colour}})
+                        saveDecks({...decks, [ID]: {title, id: ID, cards: [], dateCreated: new Date(), colour: colour}})
                         navigation.navigate("Deck", {id: ID}) }
                         catch(err) {console.log(err)}
                 }}

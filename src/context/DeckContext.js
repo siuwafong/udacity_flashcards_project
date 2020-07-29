@@ -8,22 +8,6 @@ export function DeckProvider(props) {
 
     const [decks, setDecks] = useState({})
 
-    // const [state, dispatch] = useReducer(deckReducer, [])
-
-    // const deckReducer = (deckState, action) => {
-    //     switch (action.type) {
-    //         case "ADD_DECK":
-    //             console.log(action.payload.title, action.payload.description)
-    //             return setDecks([...decks, {title: action.payload.title, description: action.payload.description}])
-    //         case "EDIT_DECK":
-    //             return console.log("deck edited")
-    //         case "DELETE_DECK":
-    //             return console.log("deck deleted")
-    //         default:
-    //             return deckState
-    //     }
-    // }
-
     const saveDecks = async (decks) => {
         try {
             await AsyncStorage.setItem("decks", JSON.stringify(decks))

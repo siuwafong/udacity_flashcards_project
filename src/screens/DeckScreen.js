@@ -6,28 +6,82 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 const DeckScreen = ({ navigation }) => {
     
     const deckID = navigation.getParam('id').toString()
-    const {setDecks, decks, saveDecks} = useContext(DeckContext)
+    const { decks } = useContext(DeckContext)
 
-    
     return (
-        <View>
-            <Text>{decks[deckID].title}</Text>
-            <Text>{decks[deckID].cards.length} cards</Text>
+        <View style={styles.container}>
+            <Text style={styles.deckTitle}>{decks[deckID].title}</Text>
+            <Text style={styles.cardCount}>{decks[deckID].cards.length} cards</Text>
 
-            <Button 
-                title="Start Quiz" 
+            <TouchableOpacity
+                style={styles.startQuizBtn} 
                 onPress={() => 
                     decks[deckID].cards.length === 0
                     ? Alert.alert("Cannot Start Quiz", "You need at least one card to do a quiz.")
                     : navigation.navigate("Quiz", {id: deckID})} 
-            
-            />
-            <TouchableOpacity onPress={() => navigation.navigate("CreateQuestion", {id: deckID})}><Text>Add Questions</Text></TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate("EditDeck", {id: deckID, title: decks[deckID].title})}><Text>View/Edit Quiz</Text></TouchableOpacity>
+            >
+                <Text style={styles.btnText}>START QUIZ</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity 
+                style={styles.addQuestionsBtn}
+                onPress={() => navigation.navigate("CreateQuestion", {id: deckID})}
+            >
+                <Text style={styles.btnText}>Add Questions</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+                style={styles.editQuizBtn} 
+                onPress={() => navigation.navigate("EditDeck", {id: deckID, title: decks[deckID].title, colour: decks[deckID].colour})}>
+                    <Text style={styles.btnText}>View/Edit Quiz</Text>
+            </TouchableOpacity>
         </View>
     )
 }
 
 export default DeckScreen
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    container: {
+        alignItems: "center"
+    },
+    deckTitle: {
+        fontSize: 30,
+        marginVertical: 20,
+    },
+    cardCount: {
+        fontSize: 20,
+        marginBottom: 10,
+    },
+    startQuizBtn: {
+        height: 80,
+        width: 140,
+        backgroundColor: "cornflowerblue",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 10,
+        marginVertical: 20
+    },
+    addQuestionsBtn: {
+        height: 80,
+        width: 140,
+        backgroundColor: "mediumaquamarine",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 10,
+        marginVertical: 20
+    },
+    editQuizBtn: {
+        height: 80,
+        width: 140,
+        backgroundColor: "sienna",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 10,
+        marginVertical: 20
+    },
+    btnText: {
+        fontWeight: "bold",
+        fontSize: 16
+    }
+})

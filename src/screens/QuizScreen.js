@@ -37,45 +37,154 @@ const QuizScreen = ({ navigation }) => {
     }
 
     return (
-        <View>
+        <View style={styles.container}>
             {questionNumber <= decks[deckID].cards.length
             ?
                 <> 
-                <Text>Question {questionNumber} / {decks[deckID].cards.length}</Text>
-                <Text>{decks[deckID].cards[questionNumber - 1].question}</Text>
+                <Text style={styles.questionCount}>Question {questionNumber} / {decks[deckID].cards.length}</Text>
+                <Text style={styles.questionText}>Question: {decks[deckID].cards[questionNumber - 1].question}</Text>
 
                 {showAnswer === false 
                 ?
-                    <TouchableOpacity onPress={() => setShowAnswer(true)}>
-                        <Text>Show Answer</Text>
+                    <TouchableOpacity 
+                        style={styles.showAnswerBtn}
+                        onPress={() => setShowAnswer(true)}
+                    >
+                        <Text style={styles.btnText}>Show Answer</Text>
                     </TouchableOpacity>
                 :
                     <>
-                    <Text>{decks[deckID].cards[questionNumber - 1].answer}</Text>
-                    <TouchableOpacity onPress={() => nextQuestion("correct")}>
-                        <Text>Correct</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => nextQuestion("incorrect")}>
-                        <Text>Incorrect</Text>
-                    </TouchableOpacity>
+                    <Text style={styles.questionText}>Answer: {decks[deckID].cards[questionNumber - 1].answer}</Text>
+                    
+                    <View style={styles.btnRow}>
+                        <TouchableOpacity 
+                            style={styles.correctBtn}
+                            onPress={() => nextQuestion("correct")}
+                        >
+                            <Text>Correct</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity 
+                            style={styles.incorrectBtn}
+                            onPress={() => nextQuestion("incorrect")}
+                        >
+                            <Text>Incorrect</Text>
+                        </TouchableOpacity>
+                    </View>
+                    
                     </>
                 }    
                 
                 </>
             :
-                <>
-                <Text>Quiz Finished</Text>
+                <View style={styles.endContainer}>
+                <Text style={styles.finishQuizMsg}>Quiz Finished</Text>
                 <Text>Your final score is {quizScore}/{decks[deckID].cards.length} - {quizScorePercentage}% </Text>
-                                
-                    <TouchableOpacity onPress={() => setQuizStats().then(restartQuiz())}><Text>Restart Quiz</Text></TouchableOpacity>
-                    <TouchableOpacity onPress={() => setQuizStats().then(navigation.navigate("DeckList"))}><Text>Back to Decks</Text></TouchableOpacity>
-                </>
+
+                    <View style={styles.btnRow}>     
+                        <TouchableOpacity 
+                            style={styles.restartQuizBtn}
+                            onPress={() => setQuizStats().then(restartQuiz())}
+                        >
+                                <Text style={styles.btnText}>Restart Quiz</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity 
+                            style={styles.goToDeckListBtn}
+                            onPress={() => setQuizStats().then(navigation.navigate("DeckList"))}
+                        >
+                                <Text style={styles.btnText}>Back to Decks</Text
+                        ></TouchableOpacity>
+                    </View>
+                </View>
             }
-            <TouchableOpacity onPress={() => console.log(bestQuizScore, quizAttempts)}><Text>View Stats </Text></TouchableOpacity>
+            {/* <TouchableOpacity onPress={() => console.log(bestQuizScore, quizAttempts)}><Text>View Stats </Text></TouchableOpacity> */}
         </View>
     )
 }
 
 export default QuizScreen
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: "center",
+        
+    },
+    questionCount: {
+        fontSize: 16,
+        marginLeft: 10,
+        alignSelf: "flex-start",
+        marginBottom: 120,
+    },
+    showAnswerBtn: {
+        height: 70,
+        width: 150,
+        backgroundColor: "mediumaquamarine",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 10,
+        marginTop: 30,
+    },
+    btnText: {
+        fontSize: 16,
+        fontWeight: "bold"
+    },
+    questionText: {
+        fontSize: 16,
+        marginVertical: 15,
+    },
+    btnRow: {
+        flex: 1,
+        flexDirection: "row",
+        marginHorizontal: 20,
+    },
+    correctBtn: {
+        height: 70,
+        width: 120,
+        backgroundColor: "limegreen",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 10,
+        marginTop: 30,
+        marginRight: 20,
+    },
+    incorrectBtn: {
+        height: 70,
+        width: 120,
+        backgroundColor: "indianred",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 10,
+        marginTop: 30,
+        marginLeft: 20,
+    },
+    finishQuizMsg: {
+        fontSize: 16,
+        fontWeight: "bold",
+        marginVertical: 20,
+    },
+    endContainer: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    restartQuizBtn: {
+        height: 70,
+        width: 120,
+        backgroundColor: "mediumaquamarine",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 10,
+        marginTop: 30,
+        marginLeft: 20,
+    },
+    goToDeckListBtn: {
+        height: 70,
+        width: 120,
+        backgroundColor: "khaki",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 10,
+        marginTop: 30,
+        marginLeft: 20,
+    }
+})

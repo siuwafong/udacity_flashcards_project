@@ -12,7 +12,7 @@ const CreateQuestionScreen = ({ navigation }) => {
     let randomID = generateID()
 
     return (
-        <View>
+        <View style={styles.container}>
             <QuestionForm 
                 onSubmit={async (question, answer) => {
                     try {
@@ -42,14 +42,23 @@ const CreateQuestionScreen = ({ navigation }) => {
                 }}
             />
 
-            <Text>This deck currently has {decks[deckID].cards.length} card(s).</Text>
-            <TouchableOpacity onPress={() => console.log(decks)}> 
+            <Text style={styles.cardCountMsg}>This deck currently has {decks[deckID].cards.length} card(s).</Text>
+            
+            {/* <TouchableOpacity onPress={() => console.log(decks)}> 
                 <Text>Print Decks</Text> 
-            </TouchableOpacity>
+            </TouchableOpacity> */}
         </View>
     )
 }
 
 export default CreateQuestionScreen
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    container: {
+        justifyContent: "center"
+    },
+    cardCountMsg: {
+        alignSelf: "center",
+        fontSize: 16,
+    }
+})
